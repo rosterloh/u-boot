@@ -30,7 +30,7 @@
 
 #define CONFIG_CMD_EXT2
 #define CONFIG_CMD_FAT
-#define CONFIG_CMD_JFFS2
+#undef CONFIG_CMD_JFFS2
 
 #define CONFIG_CMD_I2C
 #define CONFIG_CMD_MMC
@@ -126,10 +126,11 @@
 	"loadaddr=0x82000000\0" \
 	"usbtty=cdc_acm\0" \
 	"mmcdev=0\0" \
-	"console=ttyO0,115200n8\0" \
+	"console=ttyO2,115200n8\0" \
 	"mmcargs=setenv bootargs console=${console} " \
 		"root=/dev/mmcblk0p2 rw " \
-		"rootfstype=ext3 rootwait\0" \
+		"rootfstype=ext4 rootwait ip=dhcp " \
+		"vram=10M omapfb.mode=lcd:800x480MR-18@60\0" \
 	"nandargs=setenv bootargs console=${console} " \
 		"root=/dev/mtdblock4 rw " \
 		"rootfstype=jffs2\0" \

@@ -77,9 +77,9 @@
 /*
  * select serial console configuration
  */
-#define CONFIG_CONS_INDEX		1
-#define CONFIG_SERIAL1			1	/* UART1 on OMAP3 EVM */
-#define CONFIG_SYS_NS16550_COM1		OMAP34XX_UART1
+#define CONFIG_CONS_INDEX		3
+#define CONFIG_SERIAL3			3	/* UART3 on Castor II */
+#define CONFIG_SYS_NS16550_COM3		OMAP34XX_UART3
 #define CONFIG_BAUDRATE			115200
 #define CONFIG_SYS_BAUDRATE_TABLE	{4800, 9600, 19200, 38400, 57600,\
 					115200}
@@ -180,7 +180,7 @@
  * U-boot features
  * ----------------------------------------------------------------------------
  */
-#define CONFIG_SYS_PROMPT		"OMAP3_EVM # "
+#define CONFIG_SYS_PROMPT		"CASTORII # "
 #define CONFIG_SYS_MAXARGS		16	/* max args for a command */
 
 #define CONFIG_MISC_INIT_R

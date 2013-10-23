@@ -431,10 +431,10 @@ static int smc911x_detect_chip(struct eth_device *dev)
 	val = smc911x_reg_read(dev, BYTE_TEST);
 	if (val == 0xffffffff) {
 		/* Special case -- no chip present */
-		return -1;
+	//	return -1;
 	} else if (val != 0x87654321) {
 		printf(DRIVERNAME ": Invalid chip endian 0x%08lx\n", val);
-		return -1;
+	//	return -1;
 	}
 
 	val = smc911x_reg_read(dev, ID_REV) >> 16;

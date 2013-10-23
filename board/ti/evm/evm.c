@@ -25,7 +25,7 @@
 #include "evm.h"
 
 #define OMAP3EVM_GPIO_ETH_RST_GEN1		64
-#define OMAP3EVM_GPIO_ETH_RST_GEN2		7
+#define OMAP3EVM_GPIO_ETH_RST_GEN2		133 //7
 
 DECLARE_GLOBAL_DATA_PTR;
 
@@ -56,6 +56,7 @@ static void omap3_evm_get_revision(void)
 		break;
 	/* SMSC 9220 chipset */
 	case 0x92200000:
+	case 0x92210000:
 	default:
 		omap3_evm_version = OMAP3EVM_BOARD_GEN_2;
        }
@@ -185,13 +186,13 @@ static void setup_net_chip(void)
 	struct ctrl *ctrl_base = (struct ctrl *)OMAP34XX_CTRL_BASE;
 
 	/* Configure GPMC registers */
-	writel(NET_GPMC_CONFIG1, &gpmc_cfg->cs[5].config1);
-	writel(NET_GPMC_CONFIG2, &gpmc_cfg->cs[5].config2);
-	writel(NET_GPMC_CONFIG3, &gpmc_cfg->cs[5].config3);
-	writel(NET_GPMC_CONFIG4, &gpmc_cfg->cs[5].config4);
-	writel(NET_GPMC_CONFIG5, &gpmc_cfg->cs[5].config5);
-	writel(NET_GPMC_CONFIG6, &gpmc_cfg->cs[5].config6);
-	writel(NET_GPMC_CONFIG7, &gpmc_cfg->cs[5].config7);
+	writel(NET_GPMC_CONFIG1, &gpmc_cfg->cs[2].config1);
+	writel(NET_GPMC_CONFIG2, &gpmc_cfg->cs[2].config2);
+	writel(NET_GPMC_CONFIG3, &gpmc_cfg->cs[2].config3);
+	writel(NET_GPMC_CONFIG4, &gpmc_cfg->cs[2].config4);
+	writel(NET_GPMC_CONFIG5, &gpmc_cfg->cs[2].config5);
+	writel(NET_GPMC_CONFIG6, &gpmc_cfg->cs[2].config6);
+	writel(NET_GPMC_CONFIG7, &gpmc_cfg->cs[2].config7);
 
 	/* Enable off mode for NWE in PADCONF_GPMC_NWE register */
 	writew(readw(&ctrl_base ->gpmc_nwe) | 0x0E00, &ctrl_base->gpmc_nwe);
