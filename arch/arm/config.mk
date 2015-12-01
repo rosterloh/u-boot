@@ -16,9 +16,12 @@ endif
 LDFLAGS_FINAL += --gc-sections
 PLATFORM_RELFLAGS += -ffunction-sections -fdata-sections \
 		     -fno-common -ffixed-r9
+ifeq ($(CONFIG_ARM64), n)
 PLATFORM_RELFLAGS += $(call cc-option, -msoft-float) \
       $(call cc-option,-mshort-load-bytes,$(call cc-option,-malignment-traps,))
-
+else
+PLATFORM_RELFLAGS += $(call cc-option,-mshort-load-bytes,$(call cc-option,-malignment-traps,))
+endif
 PLATFORM_CPPFLAGS += -D__ARM__
 
 # Choose between ARM/Thumb instruction sets
@@ -101,7 +104,9 @@ endif
 
 ifneq ($(CONFIG_SPL_BUILD),y)
 # Check that only R_ARM_RELATIVE relocations are generated.
+ifeq ($(CONFIG_ARM64), n)
 ALL-y += checkarmreloc
+endif
 # The movt / movw can hardcode 16 bit parts of the addresses in the
 # instruction. Relocation is not supported for that case, so disable
 # such usage by requiring word relocations.
@@ -110,7 +115,7 @@ endif
 
 # limit ourselves to the sections we want in the .bin.
 ifdef CONFIG_ARM64
-OBJCOPYFLAGS += -j .text -j .rodata -j .data -j .u_boot_list -j .rela.dyn
+OBJCOPYFLAGS += -j .text -j .rodata -j .hash -j .data -j .u_boot_list -j .rela.dyn -j .got.plt -j .got
 else
 OBJCOPYFLAGS += -j .text -j .secure_text -j .rodata -j .hash -j .data -j \
 	.got -j .got.plt -j .u_boot_list -j .rel.dyn
